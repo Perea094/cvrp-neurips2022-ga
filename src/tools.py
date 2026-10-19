@@ -349,6 +349,11 @@ def read_vrplib(filename, rounded=True):
     duration_matrix = []
     service_t = []
     timewi = []
+
+    # New implemented variables
+    name = ''
+    vehicles = None
+
     with open(filename, 'r') as f:
         
         for line in f:
@@ -359,6 +364,13 @@ def read_vrplib(filename, rounded=True):
                 capacity = int(line.split(" : ")[1])
             elif line.startswith('EDGE_WEIGHT_TYPE'):
                 edge_weight_type = line.split(" : ")[1]
+
+            # New implemented variables
+            elif line.startswith('NAME'):
+                name = line.split(" : ")[1]
+            elif line.startswith('VEHICLES'):
+                vehicles = int(line.split(" : ")[1])
+
             elif line.startswith('EDGE_WEIGHT_FORMAT'):
                 edge_weight_format = line.split(" : ")[1]
             elif line == 'NODE_COORD_SECTION':
@@ -416,7 +428,9 @@ def read_vrplib(filename, rounded=True):
         'capacity': capacity,
         'time_windows': np.array(timewi),
         'service_times': np.array(service_t),
-        'duration_matrix': np.array(duration_matrix) if len(duration_matrix) > 0 else None
+        'duration_matrix': np.array(duration_matrix) if len(duration_matrix) > 0 else None,
+        'name': name, # New implemented variable
+        'vehicles': vehicles
     }
 
 def write_vrplib(filename, instance, name="problem", euclidean=False, is_vrptw=True):
