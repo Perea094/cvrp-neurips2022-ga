@@ -1,0 +1,4 @@
+config,mejor,promedio,desv_est,tiempo_prom_s,factibilidad_pct
+Config 1,1090867,1117125,11788,6.0,100.0
+Config 2,1009398,1025417,11030,11.4,100.0
+Config 3,858500,875855,10469,16.9,100.0
